@@ -1,50 +1,93 @@
 <div style="background-color: rgb(8, 5, 185)">
-  <h1><%= listTitle%></h1>
+  <h1>
+    <%= listTitle%>
+  </h1>
   <div class="view">
-    <h4><%= listItems.length %> Total</h4>
-    <h4>Complete</h4>
+    <h4>
+      <%= listItems.length %> Total
+    </h4>
+    <h4>
+      Complete
+    </h4>
     <h4>Pending</h4>
   </div>
   <form action="/add" method="post">
-    <input
-      type="text"
-      name="newItem"
-      placeholder="Add your task"
-      autofocus="true"
-    />
+    <input type="text" name="newItem" placeholder="Add your task" autofocus="true" />
     <button class="add" type="submit">Add</button>
   </form>
   <table class="table">
     <thead>
       <tr>
+        <th></th>
         <th>Num</th>
         <th>Task</th>
         <th>Date</th>
         <th>Status</th>
-        <th>Edit</th>
         <th>Delete</th>
       </tr>
       <% for (let item of listItems) { %>
         <tr>
-            <td><%= item.id %></td>
-            <td><%= item.task %></td>
-            <td><%= item.date %></td>
-            <td>
-            <form action="/status/<%= item.id %>" method="get">
-                <button class="status" type="submit"><%= item.status %></button>
+          <td>
+          </td>
+          <td>
+            <%= item.id %>
+          </td>
+          <td>
+            <form class="edit" action="/edit" method="post">
+              <span id="normal<%=item.id%>">
+                <%= item.task %>
+              </span>
+              <input type="hidden" name="editedId" value="<%=item.id%>" />
+              <input id="input<%=item.id%>" type="text" name="editedTask" placeholder="Edit your task"
+                value="<%=item.task%>" autocomplete="off" autofocus="true" hidden />
+              <button class="edit" type="submit" onclick="clickEditButton('<%=item.id%>')"> Edit </input>
             </form>
-            </td>
-            <td>
-            <form action="/edit" method="post">
-                <button class="edit" type="submit">Edit</button>
+          </td>
+          <td>
+            <%= item.date %>
+          </td>
+          <td>
+            <form action="/status" method="post">
+              <input type="hidden" name="statusId" value="<%=item.id%>" />
+              <select id="status<%=item.id%>" name="status" onchange="this.form.submit()">
+                <option value="pending" <% if(item.status=="pending" ) { %> selected <% } %>>Pending</option>
+                <option value="complete" <% if(item.status=="complete" ) { %> selected <% } %>>Complete</option>
+              </select>
+              <input type="checkbox" name="status" value="complete" onchange="this.form.submit()">
+
             </form>
-            </td>
-            <td>
+          </td>
+
+          <td>
             <form action="/delete" method="post">
-                <button class="delete" type="submit">Delete</button>
+              <button class="delete" type="submit" name="deletedId" value="<%=item.id%>">Delete</button>
             </form>
-            </td>
+          </td>
         </tr>
         <% } %>
   </table>
 </div>
+
+<script>
+  function clickEditButton(id) {
+    const normal = document.getElementById("normal" + id);
+    const input = document.getElementById("input" + id);
+    if (document.getElementById("normal" + id).hidden) {
+      normal.removeAttribute("hidden");
+      input.setAttribute("hidden", "true");
+    } else {
+      normal.setAttribute("hidden", "true");
+      input.removeAttribute("hidden");
+    }
+  }
+
+  function checkComplete(total) {
+    var count = 0;
+    for (var i = 0; i < total; i++) {
+      if (document.getElementById("status" + i).value == "complete") {
+        count++;
+      }
+    }
+    return count;
+  }
+</script>

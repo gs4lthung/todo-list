@@ -29,21 +29,59 @@ app.get("/", async (req, res) => {
     console.log(err);
   }
 });
-app.post("/add", async(req, res) => {
+app.post("/add", async (req, res) => {
   const newTask = req.body.newItem;
 
   const currentDate = new Date();
   const month = currentDate.getMonth();
   const day = currentDate.getDate();
   const newDate = `${day}-${month}`;
-  items.push({ id: items.length + 1, task: newTask, date: newDate });
-  try{
-    await db.query("INSERT INTO items(task, date) VALUES($1, $2)", [newTask, newDate]);
-  }
-  catch(err){
+
+  const newStatus = false;
+
+  items.push({ task: newTask, date: newDate, status: newStatus });
+  try {
+    await db.query("INSERT INTO items(task, date, status) VALUES($1, $2, $3)", [
+      newTask,
+      newDate,
+      newStatus,
+    ]);
+  } catch (err) {
     console.log(err);
   }
   res.redirect("/");
+});
+app.post("/edit", async (req, res) => {
+  console.log(req.body.editedTask);
+  const editedTask = req.body.editedTask;
+  const editedId = req.body.editedId;
+  try {
+    const current = await db.query("SELECT * FROM items WHERE id = $1", [
+      editedId,
+    ]);
+    if (current.rows.length > 0) {
+      const currentTask = current.rows[0].task;
+      if (currentTask !== editedTask) {
+        await db.query("UPDATE items SET task = $1 WHERE id = $2", [
+          editedTask,
+          editedId,
+        ]);
+        res.redirect("/");
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/delete", async (req, res) => {
+  const id = req.body.deletedId;
+  try {
+    await db.query("DELETE FROM items WHERE id = $1", [id]);
+    res.redirect("/");
+  } catch (err) {
+    console.log(err);
+  }
 });
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
