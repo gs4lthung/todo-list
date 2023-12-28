@@ -1,0 +1,50 @@
+<div style="background-color: rgb(8, 5, 185)">
+  <h1><%= listTitle%></h1>
+  <div class="view">
+    <h4><%= listItems.length %> Total</h4>
+    <h4>Complete</h4>
+    <h4>Pending</h4>
+  </div>
+  <form action="/add" method="post">
+    <input
+      type="text"
+      name="newItem"
+      placeholder="Add your task"
+      autofocus="true"
+    />
+    <button class="add" type="submit">Add</button>
+  </form>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Num</th>
+        <th>Task</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      <% for (let item of listItems) { %>
+        <tr>
+            <td><%= item.id %></td>
+            <td><%= item.task %></td>
+            <td><%= item.date %></td>
+            <td>
+            <form action="/status/<%= item.id %>" method="get">
+                <button class="status" type="submit"><%= item.status %></button>
+            </form>
+            </td>
+            <td>
+            <form action="/edit" method="post">
+                <button class="edit" type="submit">Edit</button>
+            </form>
+            </td>
+            <td>
+            <form action="/delete" method="post">
+                <button class="delete" type="submit">Delete</button>
+            </form>
+            </td>
+        </tr>
+        <% } %>
+  </table>
+</div>
