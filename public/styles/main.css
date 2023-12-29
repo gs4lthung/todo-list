@@ -1,0 +1,134 @@
+:root {
+    --main-color: rgb(13, 202, 186);
+    --text-color: #454b54;
+}
+
+body {
+    background-image: url("/assets/container.jpg ");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.container {
+
+    width: 70%;
+    margin: auto;
+}
+
+h1 {
+    margin: 50px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.view {
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+}
+
+.view h4 {
+    color: var(--text-color);
+    margin: 0 30px 0 30px;
+}
+
+.add {
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    margin: 50px 0 20px 0;
+}
+
+.add input {
+    padding: 10px 400px 10px 10px;
+    border: none;
+    color: var(--text-color);
+    background: no-repeat;
+    background-color: rgb(100, 206, 144);
+    border-bottom: 5px solid var(--main-color);
+}
+
+.add input:focus {
+    outline: none;
+}
+
+.add button {
+    background-color: var(--main-color);
+    border: none;
+    border-radius: 10px;
+}
+
+.add button:hover {
+    cursor: pointer;
+    background-color: rgb(12, 90, 84);
+}
+
+.table {
+    margin: 100px auto;
+    border-collapse: collapse;
+}
+
+.table th {
+    color: var(--text-color);
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
+
+.table-task {
+    padding: 0 200px 0 200px;
+}
+
+.table-date {
+    padding: 0 50px 0 50px;
+}
+
+.table-status {
+    padding: 0 50px 0 50px;
+}
+
+.table td {
+    text-align: center;
+    padding: 5px 0 5px 0;
+}
+
+.table td.task {
+    text-align: left !important;
+    padding-left: 50px;
+}
+
+.edit {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit input {
+    border: none;
+    background-color: rgb(100, 206, 144);
+    border-bottom: 5px solid var(--main-color);
+}
+
+.edit input:focus {
+    outline: none;
+}
+
+.edit button {
+    position: absolute;
+    background-color: var(--main-color);
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0 350px;
+}
+
+.delete button {
+    background-color: var(--main-color);
+    border: none;
+    border-radius: 50%;
+    padding: 3px 5px;
+}
+
+footer {
+    text-align: center;
+    margin: 250px 0 50px 0;
+    color: var(--text-color);
+}
