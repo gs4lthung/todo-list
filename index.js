@@ -29,7 +29,8 @@ app.get("/", async (req, res) => {
       listItems: items,
     });
   } catch (err) {
-    console.log(err);
+    console.error("Error fetching data:", err);
+    res.status(500).send("Internal Server Error");
   }
 });
 app.post("/add", async (req, res) => {
@@ -58,7 +59,6 @@ app.post("/add", async (req, res) => {
   res.redirect("/");
 });
 app.post("/edit", async (req, res) => {
-  console.log(req.body.editedTask);
   const editedTask = req.body.editedTask;
   const editedId = req.body.editedId;
   try {
