@@ -25,32 +25,33 @@
           <th class="table-status">Status</th>
           <th>Delete</th>
         </tr>
-        <% for (let item of listItems) { %>
+        <% for (let i=0;i<listItems.length;i++) { %>
           <tr>
             <td class="id">
-              <%= item.id %>
+              <%= i+1 %>
             </td>
             <td class="task">
               <form class="edit" action="/edit" method="post">
-                <span id="normal<%=item.id%>">
-                  <%= item.task %>
+                <span id="normal<%=listItems[i].id%>">
+                  <%= listItems[i].task %>
                 </span>
-                <input type="hidden" name="editedId" value="<%=item.id%>" />
-                <input id="input<%=item.id%>" type="text" name="editedTask" placeholder="Edit your task"
-                  value="<%=item.task%>" autocomplete="off" autofocus="true" hidden />
-                <button class="edit" type="submit" onclick="clickEditButton('<%=item.id%>')"> <img
+                <input type="hidden" name="editedId" value="<%=listItems[i].task%>" />
+                <input id="input<%=listItems[i].id%>" type="text" name="editedTask" placeholder="Edit your task"
+                  value="<%=listItems[i].task%>" autocomplete="off" autofocus="true" hidden />
+                <button class="edit" type="submit" onclick="clickEditButton('<%=listItems[i].id%>')"> <img
                     src="/assets/editbutton.png" alt="edit button" width="20px"> </input>
               </form>
             </td>
             <td class="date">
-              <%= item.date %>
+              <%= listItems[i].date %>
             </td>
             <td>
               <form action="/status" method="post">
-                <input type="hidden" name="statusId" value="<%=item.id%>" />
-                <select id="status<%=item.id%>" name="status" onchange="this.form.submit()">
-                  <option value="pending" <% if(item.status=="pending" ) { %> selected <% } %>>Pending</option>
-                  <option value="complete" <% if(item.status=="complete" ) { %> selected <% } %>>Complete</option>
+                <input type="hidden" name="statusId" value="<%=listItems[i].id%>" />
+                <select id="status<%=listItems[i].id%>" name="status" onchange="this.form.submit()">
+                  <option value="pending" <% if(listItems[i].status=="pending" ) { %> selected <% } %>>Pending</option>
+                  <option value="complete" <% if(listItems[i].status=="complete" ) { %> selected <% } %>>Complete
+                  </option>
                 </select>
                 <input type="checkbox" name="status" value="complete" onchange="this.form.submit()">
 
@@ -59,7 +60,7 @@
 
             <td>
               <form class="delete" action="/delete" method="post">
-                <button class="delete" type="submit" name="deletedId" value="<%=item.id%>"><img
+                <button class="delete" type="submit" name="deletedId" value="<%=listItems[i].id%>"><img
                     src="/assets/deletebutton.png" alt="delete button" width="20px"> </button>
               </form>
             </td>
