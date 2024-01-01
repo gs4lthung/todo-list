@@ -35,7 +35,7 @@
                 <span id="normal<%=listItems[i].id%>">
                   <%= listItems[i].task %>
                 </span>
-                <input type="hidden" name="editedId" value="<%=listItems[i].task%>" />
+                <input type="hidden" name="editedId" value="<%=listItems[i]. id%>" />
                 <input id="input<%=listItems[i].id%>" type="text" name="editedTask" placeholder="Edit your task"
                   value="<%=listItems[i].task%>" autocomplete="off" autofocus="true" hidden />
                 <button class="edit" type="submit" onclick="clickEditButton('<%=listItems[i].id%>')"> <img
