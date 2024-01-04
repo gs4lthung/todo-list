@@ -128,7 +128,9 @@ h1 {
 }
 
 footer {
+    /* position: absolute; */
     text-align: center;
-    margin: 250px 0 50px 0;
-    color: var(--text-color);
+    bottom: 0;
+    width: 100%;
+    color: black;
 }

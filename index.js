@@ -19,9 +19,6 @@ let items = [];
 
 app.get("/", async (req, res) => {
   try {
-    if (items.length === 0) {
-      await db.query("ALTER SEQUENCE items_id_seq RESTART WITH 1");
-    }
     const result = await db.query("SELECT * FROM items ORDER BY id ASC");
     items = result.rows;
     res.render("index.ejs", {
@@ -40,9 +37,10 @@ app.post("/add", async (req, res) => {
     return;
   }
   const currentDate = new Date();
-  const month = currentDate.getMonth();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1;
   const day = currentDate.getDate();
-  const newDate = `${day}-${month}`;
+  const newDate = `${day}/${month}/${year}`;
 
   const newStatus = false;
 
